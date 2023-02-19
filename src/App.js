@@ -1,6 +1,5 @@
 import React from 'react';
-import './App.css';
-
+import './style.css';
 
 const tg = window.Telegram.WebApp;
 function App() {
