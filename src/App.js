@@ -1,11 +1,13 @@
-import React from "react";
-import "./style.css";
+import React from 'react';
+import './App.css';
 
-export default function App() {
-  return (
-    <div>
-      <h1>Hello StackBlitz!</h1>
-      <p>Start editing to see some magic happen :)</p>
-    </div>
-  );
+const tg = window.Telegram.WebApp;
+function App() {
+  React.useEffect(() => tg.ready(), []);
+  const onClose = () => {
+    tg.close();
+  };
+  return <button onClick={onClose}>Закрыть</button>;
 }
+
+export default App;
