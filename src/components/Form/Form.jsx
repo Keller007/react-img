@@ -7,6 +7,22 @@ export const Form = () => {
   const [subject, setSubject] = React.useState("physical");
   const { tg } = useTelegram();
 
+  const onSendData = React.useCallback(() => {
+    const data = {
+      country,
+      street,
+      subject,
+    };
+    tg.sendData(JSON.stringify(data));
+  }, [country, street, subject]);
+
+  React.useEffect(() => {
+    tg.onEvent("mainButtonClicked", onSendData);
+    return () => {
+      tg.offEvent("mainButtonClicked", onSendData);
+    };
+  }, [onSendData]);
+
   React.useEffect(() => {
     tg.MainButton.setParams(
       {
@@ -15,6 +31,7 @@ export const Form = () => {
       []
     );
   });
+
   React.useEffect(() => {
     if (!street || !country) {
       tg.MainButton.hide();
